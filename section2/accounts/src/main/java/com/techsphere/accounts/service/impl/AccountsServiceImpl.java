@@ -1,10 +1,13 @@
 package com.techsphere.accounts.service.impl;
 
 import com.techsphere.accounts.constants.AccountsConstants;
+import com.techsphere.accounts.dto.AccountsDto;
 import com.techsphere.accounts.dto.CustomerDto;
 import com.techsphere.accounts.entity.Accounts;
 import com.techsphere.accounts.entity.Customer;
 import com.techsphere.accounts.exception.CustomerAlreadyExistsException;
+import com.techsphere.accounts.exception.ResourceNotFoundException;
+import com.techsphere.accounts.mapper.AccountsMapper;
 import com.techsphere.accounts.mapper.CustomerMapper;
 import com.techsphere.accounts.repository.AccountsRepository;
 import com.techsphere.accounts.repository.CustomerRepository;
@@ -57,5 +60,28 @@ public class AccountsServiceImpl implements IAccountsService {
         newAccount.setCreatedAt(LocalDateTime.now());
         newAccount.setCreatedBy("Anonymous");
         return newAccount;
+    }
+
+
+    /**
+     * Retrieves the account details based on the provided mobile number.
+     *
+     * @param mobileNumber The mobile number to fetch the account for.
+     * @return The account details associated with the given mobile number.
+     */
+    @Override
+    public CustomerDto fetchAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
+        );
+
+        Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                () -> new ResourceNotFoundException("Account", "CustomerId", String.valueOf(customer.getCustomerId()))
+        );
+
+        CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+        customerDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
+
+        return customerDto;
     }
 }
