@@ -16,3 +16,12 @@ spring:
     show-sql: true
 build:
   version: "1.0"
+
+accounts:
+  message: "Welcome to Bank accounts related local APIs "
+  contactDetails:
+    name: "Hamid Zajkani - Developer"
+    email: "hzajkani@gmail.com"
+  onCallSupport:
+    - (000) 000-1234
+    - (000) 000-1345
