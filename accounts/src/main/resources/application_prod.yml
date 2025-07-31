@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to Bank accounts related Prod APIs "
+  contactDetails:
+    name: "Mike N - Product Owner"
+    email: "mike@gmail.com"
+  onCallSupport:
+    - (049) 000-1234
+    - (049) 000-1345
