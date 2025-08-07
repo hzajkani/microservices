@@ -1,13 +1,8 @@
-spring:
-  config:
-    activate:
-      on-profile: "qa"
-
 build:
   version: "2.0"
 
 accounts:
-  message: "Welcome to Bank accounts related QA APIs "
+  message: "Welcome to Bank accounts related QA APIs from config server"
   contactDetails:
     name: "Mike J - QA - Lead"
     email: "mike@gmail.com"
