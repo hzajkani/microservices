@@ -34,3 +34,9 @@ To start all services with Docker, navigate to the desired environment under the
 
 ```bash
 docker compose up -d
+```
+
+## Extra infos : 
+for generate docker images with google jib plugin, execute in each microservice the following command :  
+```mvn compile jib:dockerBuild ```
+
